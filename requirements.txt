@@ -1,0 +1,9 @@
+Django
+django-environ
+djlint
+
+whitenoise
+Pillow
+gunicorn
+uvicorn[standard]
+uvicorn-worker
