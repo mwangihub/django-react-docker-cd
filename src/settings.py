@@ -1,20 +1,19 @@
 import os
 import environ
 from pathlib import Path
+from src.config import *
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-env = environ.Env(DEBUG=(bool, False))
+env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
-SECRET_KEY = env("DJANGO_SECRET")
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 DEBUG = env("DJANGO_DEBUG")
 
-print(f"""`Debug :`{DEBUG}""")
-
 ROOT_URLCONF = "src.urls"
 
-ALLOWED_HOSTS = ["localhost", "django.traefik"]
+ALLOWED_HOSTS = ["*"]
 
 WSGI_APPLICATION = "src.wsgi.application"
 
@@ -27,6 +26,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR, "static"]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STORAGES = {
     "staticfiles": {
@@ -36,9 +36,15 @@ STORAGES = {
     },
 }
 
+if DEBUG:
+    STATICFILES_DIRS += [
+        BASE_DIR,
+        "react/dist/assets",
+    ]
+
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
@@ -50,13 +56,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+      "corsheaders",
     "app",
+    "user",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
