@@ -1,32 +1,36 @@
-import psycopg2
+from pathlib import Path
 
-try:
-    # Establish the connection
-    connection = psycopg2.connect(
-        user="",
-        password="",
-        host="",
-        port="",
-        database=""
-    )
+# Cannot test postgreSQL remotely, hence skip
 
-    # Create a cursor object
-    cursor = connection.cursor()
+# import psycopg2
 
-    # Print PostgreSQL details
-    print("PostgreSQL connection is open")
+# try:
+#     # Establish the connection
+#     connection = psycopg2.connect(
+#         user="",
+#         password="",
+#         host="",
+#         port="",
+#         database=""
+#     )
 
-    # Execute a simple SQL query
-    cursor.execute("SELECT version();")
-    record = cursor.fetchone()
-    print("You are connected to - ", record, "\n")
+#     # Create a cursor object
+#     cursor = connection.cursor()
 
-except (Exception, psycopg2.Error) as error:
-    print("Error while connecting to PostgreSQL", error)
+#     # Print PostgreSQL details
+#     print("PostgreSQL connection is open")
 
-finally:
-    # Closing database connection
-    if connection:
-        cursor.close()
-        connection.close()
-        print("PostgreSQL connection is closed")
+#     # Execute a simple SQL query
+#     cursor.execute("SELECT version();")
+#     record = cursor.fetchone()
+#     print("You are connected to - ", record, "\n")
+
+# except (Exception, psycopg2.Error) as error:
+#     print("Error while connecting to PostgreSQL", error)
+
+# finally:
+#     # Closing database connection
+#     if connection:
+#         cursor.close()
+#         connection.close()
+#         print("PostgreSQL connection is closed")
