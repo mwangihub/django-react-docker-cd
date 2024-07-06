@@ -26,6 +26,7 @@ jobs:
 
     env:
       DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      DJANGO_DEBUG: ${{DJANGO_DEBUG}}
 
     steps:
       - name: Check out repository code
@@ -44,6 +45,7 @@ jobs:
       - name: Run Django tests
         env:
           DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          DJANGO_DEBUG: ${{DJANGO_DEBUG}}
         run: |
           python manage.py migrate
           python manage.py test
